@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title></title>
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/output.css" id="theme" />
+    <link rel="stylesheet" href="plugin/highlight/zenburn.css" />
+	<link rel="stylesheet" href="css/layout.css" />
+	<link rel="stylesheet" href="plugin/customcontrols/style.css">
+
+
+
+    <script defer src="dist/fontawesome/all.min.js"></script>
+
+	<script type="text/javascript">
+		var forgetPop = true;
+		function onPopState(event) {
+			if(forgetPop){
+				forgetPop = false;
+			} else {
+				parent.postMessage(event.target.location.href, "app://obsidian.md");
+			}
+        }
+		window.onpopstate = onPopState;
+		window.onmessage = event => {
+			if(event.data == "reload"){
+				window.document.location.reload();
+			}
+			forgetPop = true;
+		}
+
+		function fitElements(){
+			const itemsToFit = document.getElementsByClassName('fitText');
+			for (const item in itemsToFit) {
+				if (Object.hasOwnProperty.call(itemsToFit, item)) {
+					var element = itemsToFit[item];
+					fitElement(element,1, 1000);
+					element.classList.remove('fitText');
+				}
+			}
+		}
+
+		function fitElement(element, start, end){
+
+			let size = (end + start) / 2;
+			element.style.fontSize = `${size}px`;
+
+			if(Math.abs(start - end) < 1){
+				while(element.scrollHeight > element.offsetHeight){
+					size--;
+					element.style.fontSize = `${size}px`;
+				}
+				return;
+			}
+
+			if(element.scrollHeight > element.offsetHeight){
+				fitElement(element, start, size);
+			} else {
+				fitElement(element, size, end);
+			}		
+		}
+
+
+		document.onreadystatechange = () => {
+			fitElements();
+			if (document.readyState === 'complete') {
+				if (window.location.href.indexOf("?export") != -1){
+					parent.postMessage(event.target.location.href, "app://obsidian.md");
+				}
+				if (window.location.href.indexOf("print-pdf") != -1){
+					let stateCheck = setInterval(() => {
+						clearInterval(stateCheck);
+						window.print();
+					}, 250);
+				}
+			}
+	};
+
+
+        </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="phishing.png" alt="" style="width: 600px; height: 200px; object-fit: fill">
+
+
+<br>
+
+### AI Powered Web Application for Real-Time Phishing Link Detection
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 40%; top: 0%; height: 10%; width: 20%; display: flex; flex-direction: column; align-items: center; justify-content: center" align="center">
+
+# Overview
+</div>
+
+<div class="" style="position: absolute; left: 5%; top: 30%; height: 50%; width: 60%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+
+### [Introduction](#phish)
+### [Proposed System](#block)
+### [Working Principle](#working)
+### [Results](#result)
+### [Conclusion](#AI)
+</div>
+
+<div class="" style="position: absolute; left: 30%; top: 15%; height: 70%; width: 70%; display: flex; flex-direction: column; align-items: center; justify-content: center" align="center">
+
+<img src="overview.png" alt="" style="object-fit: scale-down">
+
+ </div>
+</div></script></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+**PhishCure** is a real time website used for identifying phishing URLs which utilizes AI trained model so it determines whether the user input is malicious or not.
+</div></script></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="phish" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# What is Phishing?
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="phish.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Types of Phishing
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="spear" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 5%; top: 20%; height: 60%; width: 30%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+[<mark>Spear Phishing</mark>](#spear)
+
+[Vishing](#vishing)
+
+[Email phishing](#email)
+
+[Smishing ](#smish)
+
+[Whaling ](#whale)
+</div> 
+
+ <div class="" style="position: absolute; left: 30%; top: 15%; height: 70%; width: 70%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="speardark.png" alt="" style="width: 700px; height: 900px; object-fit: fill">
+
+ </div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="vishing" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 5%; top: 20%; height: 60%; width: 30%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+[Spear Phishing](#spear)
+
+[<mark>Vishing</mark>](#vishing)
+
+[Email phishing](#email)
+
+[Smishing](#smish)
+
+[Whaling](#whale)
+</div> 
+
+ <div class="" style="position: absolute; left: 30%; top: 15%; height: 70%; width: 70%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="vishingdark.png" alt="" style="width: 700px; height: 900px; object-fit: fill">
+
+ </div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="email" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 5%; top: 20%; height: 60%; width: 30%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+[Spear Phishing](#spear)
+
+[Vishing](#vishing)
+
+[<mark>Email phishing</mark>](#email)
+
+[Smishing ](#smish)
+
+[Whaling ](#whale)
+</div> 
+
+<div class="" style="position: absolute; left: 30%; top: 15%; height: 70%; width: 70%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="emaildark.png" alt="" style="width: 700px; height: 900px; object-fit: fill">
+
+ </div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="smish" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 5%; top: 20%; height: 60%; width: 30%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+[Spear Phishing](#spear)
+
+[Vishing](#vishing)
+
+[Email phishing](#email)
+
+[<mark>Smishing</mark> ](#smish)
+
+[Whaling ](#whale)
+</div> 
+
+ <div class="" style="position: absolute; left: 30%; top: 15%; height: 70%; width: 70%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="smishingdark.png" alt="" style="width: 700px; height: 900px; object-fit: fill">
+
+ </div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="whale" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 5%; top: 20%; height: 60%; width: 30%; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-evenly" align="left">
+
+[Spear Phishing](#spear)
+
+[Vishing](#vishing)
+
+[Email phishing](#email)
+
+[Smishing ](#smish)
+
+[<mark>Whaling</mark> ](#whale)
+</div> 
+
+ <div class="" style="position: absolute; left: 30%; top: 15%; height: 70%; width: 70%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+<img src="whalingdark.png" alt="" style="width: 700px; height: 900px; object-fit: fill">
+
+ </div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+# Impacts of Phishing
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpactmain.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpact1.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpact2.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpact3.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpact4.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpact5.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Impacts of Phishing
+<img src="chartimpact6.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<div class="" style="position: absolute; left: 5%; top: 10%; height: 20%; width: 90%; display: flex; flex-direction: column; align-items: center; justify-content: center" align="center">
+
+## HOW PHISHING LINKS ARE IDENTIFIED
+</div>
+
+<div class="" style="position: absolute; left: 10%; top: 35%; height: 30%; width: 80%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+
+- &shy;<!-- .element: class="fragment" data-fragment-index="1" -->Inspect URLs for suspicious actions
+- &shy;<!-- .element: class="fragment" data-fragment-index="2" -->Hover over URLs
+- &shy;<!-- .element: class="fragment" data-fragment-index="3" -->Too many POP-ups.
+- &shy;<!-- .element: class="fragment" data-fragment-index="4" -->Forceful transaction takes place
+- &shy;<!-- .element: class="fragment" data-fragment-index="5" -->[Examine Domain names](#domain).
+- &shy;<!-- .element: class="fragment" data-fragment-index="6" -->[Check for HTTPS or SSL(Secure Sockets Layer).](#domain1)
+</div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="domain" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="ex1.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="domain1" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+<img src="ex2.png" alt="" style="object-fit: scale-down">
+</div></script></section></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="block" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+###  Block Diagram
+
+<img src="BLOCK3.png" alt="" style="width: 1300px; height: 800px; object-fit: fill">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+###  Block Diagram
+
+<img src="BLOCK2.png" alt="" style="width: 1300px; height: 800px; object-fit: fill">
+</div></script></section></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="working" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+##  Working Principle
+
+- When the user enters URL then the feature extraction process starts.  <br> 
+
+    -  <mark>Features :</mark> 
+       - Domain name. <!-- .element: class="fragment" data-fragment-index="1" -->
+       - Protocol. <!-- .element: class="fragment" data-fragment-index="2" -->
+       - IP address. <!-- .element: class="fragment" data-fragment-index="3" -->
+       - Redirection. <!-- .element: class="fragment" data-fragment-index="4" -->
+       - Depth of URL. <!-- .element: class="fragment" data-fragment-index="5" -->
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+- Then we trained various ML model to determine the best fit for the dataset.
+<div class="" style="position: absolute; left: 55%; top: 40%; height: 80%; width: 80%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+ 
+<img src="model.png" alt="" style="width: 900px; height: 600px; object-fit: fill">
+
+</div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+-  We chose the RandomForestClassifier for its best accuracy.
+<div class="" style="position: absolute; left: 55%; top: 40%; height: 80%; width: 80%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+ 
+<img src="g1.png" alt="" style="width: 600px; height: 600px; object-fit: fill">
+
+</div>
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+- Then the features are then fed into a Trained machine learning model.<!-- .element: class="fragment" data-fragment-index="1 " -->
+- The model analyzes the features and predicts the probability of the URL being malicious.<!-- .element: class="fragment" data-fragment-index="2" -->
+- Based on the prediction:<!-- .element: class="fragment" data-fragment-index="3" -->
+     - Displays warning page for suspicious URLs
+     -  Displays Trust Indicator for Safe URLs.
+     
+<div class="" style="position: absolute; left: 55%; top: 40%; height: 50%; width: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center" >
+<!-- .element: class="fragment" data-fragment-index="3" --> 
+<img src="pred.png" alt="" style="width: 500px; height: 500px; object-fit: fill">
+
+</div>
+</div></script></section></section><section ><section data-markdown><script type="text/template"><!-- .slide: class="drop" id="result" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+##  Results
+
+<img src="mainpage.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+##### secure
+
+<img src="secure.png" alt="" style="object-fit: scale-down">
+</div></script></section><section data-markdown><script type="text/template"><!-- .slide: class="drop" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+##### Unsecure
+
+<img src="unsecure.png" alt="" style="object-fit: scale-down">
+</div></script></section></section><section  data-markdown><script type="text/template"><!-- .slide: class="drop" id="Ai" -->
+<div class="" style="position: absolute; left: 0px; top: 0px; height: 900px; width: 1600px; min-height: 900px; display: flex; flex-direction: column; align-items: center; justify-content: center" absolute="true">
+
+## Conclusion
+
+- PhishCure presents a solution for the ongoing battle against phishing attacks<!-- .element: class="fragment" data-fragment-index="1" -->
+- By Integrating machine learning algorithms, we have developed a tool capable of detecting phishing sites with high accuracy ( 86% ). <!-- .element: class="fragment" data-fragment-index="2" -->
+- PhishCure enhances security for individuals and organizations which leads for a safer online environment.<!-- .element: class="fragment" data-fragment-index="3" -->
+</div></script></section></div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/math/math.js"></script>
+	<script src="plugin/mermaid/mermaid.js"></script>
+	<script src="plugin/chart/chart.min.js"></script>
+	<script src="plugin/chart/plugin.js"></script>
+	<script src="plugin/customcontrols/plugin.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+	  function isLight(color) {
+		let hex = color.replace('#', '');
+
+		// convert #fff => #ffffff
+		if(hex.length == 3){
+			hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+		}
+
+		const c_r = parseInt(hex.substr(0, 2), 16);
+		const c_g = parseInt(hex.substr(2, 2), 16);
+		const c_b = parseInt(hex.substr(4, 2), 16);
+		const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
+		return brightness > 155;
+	}
+
+	var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--r-background-color').trim();
+	var isLight = isLight(bgColor);
+
+	if(isLight){
+		document.body.classList.add('has-light-background');
+	} else {
+		document.body.classList.add('has-dark-background');
+	}
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        plugins: [
+          RevealMarkdown,
+          RevealHighlight,
+          RevealZoom,
+          RevealNotes,
+          RevealMath.MathJax3,
+		  RevealMermaid,
+		  RevealChart,
+		  RevealCustomControls,
+        ],
+
+
+    	allottedTime: 120 * 1000,
+
+		mathjax3: {
+			mathjax: 'plugin/math/mathjax/tex-mml-chtml.js',
+		},
+		markdown: {
+		  gfm: true,
+		  mangle: true,
+		  pedantic: false,
+		  smartLists: false,
+		  smartypants: false,
+		},
+
+		mermaid: {
+			theme: isLight ? 'default' : 'dark',
+		},
+
+		customcontrols: {
+			controls: [
+			]
+		},
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal().getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"width":"1600","height":"900","margin":0.04,"controls":true,"progress":true,"slideNumber":false,"transition":"fade","transitionSpeed":"default"}, queryOptions);
+    </script>
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+
+  <!-- created with Advanced Slides -->
+</html>
